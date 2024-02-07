@@ -7,14 +7,22 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "resetCache": "yarn start --reset-cache",
+    "reset": "yarn start --reset-cache",
     "setup": "cd ios\n pod install",
     "test": "jest"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/native-stack": "^6.9.17",
     "react": "18.2.0",
     "react-native": "0.73.3",
-    "react-native-splash-screen": "^3.3.0"
+    "react-native-gesture-handler": "^2.15.0",
+    "react-native-reanimated": "^3.6.2",
+    "react-native-safe-area-context": "^4.9.0",
+    "react-native-screens": "^3.29.0",
+    "react-native-shadow-2": "^7.0.8",
+    "react-native-splash-screen": "^3.3.0",
+    "react-native-svg": "^14.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
