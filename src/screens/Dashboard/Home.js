@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, ScrollView, ImageBackground, Image} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  ImageBackground,
+  Image,
+  Platform,
+} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 
 import {COLORS, FONTS, SIZES, dummyData, icons, images} from '../../constants';
@@ -48,7 +55,7 @@ const Home = () => {
       <View
         style={{
           flexDirection: 'row',
-          marginTop: 50,
+          marginTop: Platform.OS === 'ios' ? 50 : 20,
           marginBottom: 10,
           paddingHorizontal: SIZES.padding,
           alignItems: 'center',
@@ -138,7 +145,7 @@ const Home = () => {
         renderItem={({item, index}) => (
           <VerticalCard
             containerStyle={{
-              marginLeft: index == 0 ? SIZES.padding : SIZES.radius,
+              marginLeft: index === 0 ? SIZES.padding : SIZES.radius,
               marginRight:
                 index === dummyData.courses_list_1.length - 1
                   ? SIZES.padding
@@ -167,9 +174,9 @@ const Home = () => {
             <CategoryCard
               category={item}
               containerStyle={{
-                marginLeft: index == 0 ? SIZES.padding : SIZES.base,
+                marginLeft: index === 0 ? SIZES.padding : SIZES.base,
                 marginRight:
-                  index == dummyData.categories.length - 1 ? SIZES.padding : 0,
+                  index === dummyData.categories.length - 1 ? SIZES.padding : 0,
               }}
             />
           )}
@@ -199,7 +206,7 @@ const Home = () => {
               course={item}
               containerStyle={{
                 marginVertical: SIZES.padding,
-                marginTop: index == 0 ? SIZES.radius : SIZES.padding,
+                marginTop: index === 0 ? SIZES.radius : SIZES.padding,
               }}
             />
           )}
