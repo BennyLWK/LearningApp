@@ -1,9 +1,13 @@
 import React from 'react';
+import {ImageBackground, Text, TouchableOpacity} from 'react-native';
+import {useSelector} from 'react-redux';
 
 import {COLORS, FONTS, SIZES} from '../constants';
-import {ImageBackground, Text, TouchableOpacity} from 'react-native';
+import {selectedTheme} from '../redux/theme/themeSlice';
 
 const CategoryCard = ({category, containerStyle}) => {
+  const appTheme = useSelector(selectedTheme);
+
   return (
     <TouchableOpacity>
       <ImageBackground
@@ -20,7 +24,7 @@ const CategoryCard = ({category, containerStyle}) => {
         imageStyle={{borderRadius: SIZES.radius}}>
         <Text
           style={{
-            color: COLORS.white,
+            color: appTheme?.backgroundColor1,
             ...FONTS.h2,
           }}>
           {category?.title}

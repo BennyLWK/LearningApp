@@ -1,9 +1,13 @@
 import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {useSelector} from 'react-redux';
 
 import {COLORS, FONTS, SIZES, icons} from '../constants';
+import {selectedTheme} from '../redux/theme/themeSlice';
 
 const ProfileValue = ({icon, label, value, onPress}) => {
+  const appTheme = useSelector(selectedTheme);
+
   return (
     <TouchableOpacity
       style={{
@@ -20,7 +24,7 @@ const ProfileValue = ({icon, label, value, onPress}) => {
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: 20,
-          backgroundColor: COLORS.additionalColor11,
+          backgroundColor: appTheme?.backgroundColor3,
         }}>
         <Image
           source={icon}
@@ -49,11 +53,18 @@ const ProfileValue = ({icon, label, value, onPress}) => {
           </Text>
         )}
 
-        <Text style={{...FONTS.h3}}>{value}</Text>
+        <Text style={{color: appTheme?.textColor, ...FONTS.h3}}>{value}</Text>
       </View>
 
       {/* Icon */}
-      <Image source={icons.right_arrow} style={{width: 15, height: 15}} />
+      <Image
+        source={icons.right_arrow}
+        style={{
+          tintColor: appTheme?.tintColor,
+          width: 15,
+          height: 15,
+        }}
+      />
     </TouchableOpacity>
   );
 };

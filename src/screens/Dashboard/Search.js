@@ -9,11 +9,15 @@ import Animated, {
 } from 'react-native-reanimated';
 import {FlatList} from 'react-native-gesture-handler';
 import {Shadow} from 'react-native-shadow-2';
+import {useSelector} from 'react-redux';
 
 import {CategoryCard, TextButton} from '../../components';
 import {COLORS, FONTS, SIZES, dummyData, icons} from '../../constants';
+import {selectedTheme} from '../../redux/theme/themeSlice';
 
 const Search = () => {
+  const appTheme = useSelector(selectedTheme);
+
   const scrollViewRef = useRef();
 
   const scrollY = useSharedValue(0);
@@ -26,6 +30,7 @@ const Search = () => {
       <View style={{marginTop: SIZES.padding}}>
         <Text
           style={{
+            color: appTheme?.textColor,
             marginHorizontal: SIZES.padding,
             ...FONTS.h2,
           }}>
@@ -71,6 +76,7 @@ const Search = () => {
         }}>
         <Text
           style={{
+            color: appTheme?.textColor,
             marginHorizontal: SIZES.padding,
             ...FONTS.h2,
           }}>
@@ -173,7 +179,7 @@ const Search = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: COLORS.white,
+        backgroundColor: appTheme?.backgroundColor1,
       }}>
       <Animated.ScrollView
         ref={scrollViewRef}

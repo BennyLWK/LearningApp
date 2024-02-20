@@ -8,6 +8,7 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 
 import {COLORS, FONTS, SIZES, icons, images} from '../../constants';
 import {
@@ -18,10 +19,26 @@ import {
   ProgressBar,
   TextButton,
 } from '../../components';
+import {toggleTheme, selectedTheme} from '../../redux/theme/themeSlice';
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const appTheme = useSelector(selectedTheme);
+
   const [newCourseNotification, setNewCourseNotification] = useState(false);
   const [studyReminder, setStudyReminder] = useState(false);
+
+  // Handler
+
+  function toggleThemeHandler() {
+    if (appTheme?.name === 'light') {
+      dispatch(toggleTheme('dark'));
+    } else {
+      dispatch(toggleTheme('light'));
+    }
+  }
+
+  // Render UI
 
   function renderHeader() {
     return (
@@ -32,18 +49,14 @@ const Profile = () => {
           paddingHorizontal: SIZES.padding,
           justifyContent: 'space-between',
         }}>
-        <Text
-          style={{
-            ...FONTS.h1,
-          }}>
-          Profile
-        </Text>
+        <Text style={{color: appTheme?.textColor, ...FONTS.h1}}>Profile</Text>
 
         <IconButton
           icon={icons.sun}
           iconStyle={{
-            tintColor: COLORS.black,
+            tintColor: appTheme?.tintColor,
           }}
+          onPress={() => toggleThemeHandler()}
         />
       </View>
     );
@@ -58,7 +71,7 @@ const Profile = () => {
           paddingHorizontal: SIZES.radius,
           paddingVertical: 20,
           borderRadius: SIZES.radius,
-          backgroundColor: COLORS.primary3,
+          backgroundColor: appTheme?.backgroundColor2,
         }}>
         {/* Profile Image */}
         <TouchableOpacity
@@ -168,9 +181,9 @@ const Profile = () => {
               marginTop: SIZES.padding,
               paddingHorizontal: SIZES.radius,
               borderRadius: 20,
-              backgroundColor: COLORS.white,
+              backgroundColor: appTheme?.backgroundColor4,
             }}
-            labelStyle={{color: COLORS.primary}}
+            labelStyle={{color: appTheme?.textColor2}}
           />
         </View>
       </View>
@@ -243,7 +256,7 @@ const Profile = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: COLORS.white,
+        backgroundColor: appTheme?.backgroundColor1,
       }}>
       {/* Header */}
       {renderHeader()}

@@ -8,6 +8,7 @@ import {
   Platform,
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
+import {useSelector} from 'react-redux';
 
 import {COLORS, FONTS, SIZES, dummyData, icons, images} from '../../constants';
 import {
@@ -18,8 +19,11 @@ import {
   TextButton,
   VerticalCard,
 } from '../../components';
+import {selectedTheme} from '../../redux/theme/themeSlice';
 
 const Section = ({containerStyle, title, onPress, children}) => {
+  const appTheme = useSelector(selectedTheme);
+
   return (
     <View style={{...containerStyle}}>
       <View
@@ -27,11 +31,7 @@ const Section = ({containerStyle, title, onPress, children}) => {
           flexDirection: 'row',
           paddingHorizontal: SIZES.padding,
         }}>
-        <Text
-          style={{
-            flex: 1,
-            ...FONTS.h2,
-          }}>
+        <Text style={{color: appTheme?.textColor, flex: 1, ...FONTS.h2}}>
           {title}
         </Text>
 
@@ -50,6 +50,8 @@ const Section = ({containerStyle, title, onPress, children}) => {
   );
 };
 const Home = () => {
+  const appTheme = useSelector(selectedTheme);
+
   function renderHeader() {
     return (
       <View
@@ -65,7 +67,9 @@ const Home = () => {
           style={{
             flex: 1,
           }}>
-          <Text style={{...FONTS.h2}}>Hellow Benny!</Text>
+          <Text style={{color: appTheme?.textColor, ...FONTS.h2}}>
+            Hellow Benny!
+          </Text>
           <Text
             style={{
               color: COLORS.gray50,
@@ -77,7 +81,7 @@ const Home = () => {
         {/* Notification */}
         <IconButton
           icon={icons.notification}
-          iconStyle={{tintColor: COLORS.black}}
+          iconStyle={{tintColor: appTheme?.tintColor}}
         />
       </View>
     );
@@ -226,7 +230,7 @@ const Home = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: COLORS.white,
+        backgroundColor: appTheme?.backgroundColor1,
       }}>
       {/* Header */}
       {renderHeader()}

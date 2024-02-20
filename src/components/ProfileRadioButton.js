@@ -1,9 +1,14 @@
 import React, {useEffect, useRef} from 'react';
 import {Animated, Image, Text, View} from 'react-native';
-import {COLORS, FONTS, SIZES} from '../constants';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useSelector} from 'react-redux';
+
+import {COLORS, FONTS, SIZES} from '../constants';
+import {selectedTheme} from '../redux/theme/themeSlice';
 
 const ProfileRadioButton = ({icon, label, isSelected, onPress}) => {
+  const appTheme = useSelector(selectedTheme);
+
   const radioAnimated = useRef(new Animated.Value(0)).current;
 
   const circleColorAnimated = radioAnimated.interpolate({
@@ -47,7 +52,7 @@ const ProfileRadioButton = ({icon, label, isSelected, onPress}) => {
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: 20,
-          backgroundColor: COLORS.additionalColor11,
+          backgroundColor: appTheme?.backgroundColor3,
         }}>
         <Image
           source={icon}
@@ -68,6 +73,7 @@ const ProfileRadioButton = ({icon, label, isSelected, onPress}) => {
         }}>
         <Text
           style={{
+            color: appTheme?.textColor,
             ...FONTS.h3,
           }}>
           {label}
@@ -101,7 +107,7 @@ const ProfileRadioButton = ({icon, label, isSelected, onPress}) => {
             borderRadius: 15,
             borderWidth: 5,
             borderColor: circleColorAnimated,
-            backgroundColor: COLORS.white,
+            backgroundColor: appTheme?.backgroundColor1,
           }}
         />
       </TouchableOpacity>

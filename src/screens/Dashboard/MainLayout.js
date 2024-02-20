@@ -7,9 +7,11 @@ import React, {
 } from 'react';
 import {View, Text, Animated, TouchableOpacity, Image} from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
+import {useSelector} from 'react-redux';
 
 import {COLORS, FONTS, SIZES, constants} from '../../constants';
 import {Home, Profile, Search} from '../../screens';
+import {selectedTheme} from '../../redux/theme/themeSlice';
 
 const bottom_tabs = constants.bottom_tabs.map(bottom_tab => ({
   ...bottom_tab,
@@ -110,6 +112,8 @@ const Tabs = ({scrollX, onBottomTabPress}) => {
   );
 };
 const MainLayout = () => {
+  const appTheme = useSelector(selectedTheme);
+
   const flatListRef = useRef();
   const scrollX = useRef(new Animated.Value(0)).current;
 
@@ -162,18 +166,18 @@ const MainLayout = () => {
     return (
       <View
         style={{
-          marginBottom: 20,
+          paddingBottom: SIZES.height > 800 ? 20 : 5,
           paddingHorizontal: SIZES.padding,
           paddingVertical: SIZES.radius,
           height: 95,
-          //   width: 360, //SIZES.width,
+          backgroundColor: appTheme?.backgroundColor1,
         }}>
         <Shadow size={[100, 85]}>
           <View
             style={{
               flex: 1,
               borderRadius: SIZES.radius,
-              backgroundColor: COLORS.primary3,
+              backgroundColor: appTheme?.backgroundColor2,
               width: SIZES.width - SIZES.padding * 2,
             }}>
             <Tabs scrollX={scrollX} onBottomTabPress={onBottomTabPress} />
@@ -186,7 +190,7 @@ const MainLayout = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: COLORS.white,
+        backgroundColor: appTheme?.backgroundColor1,
       }}>
       {/* Content */}
       {renderContent()}

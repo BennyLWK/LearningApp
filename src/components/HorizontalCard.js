@@ -1,10 +1,14 @@
 import React from 'react';
+import {Image, ImageBackground, Text, View} from 'react-native';
+import {useSelector} from 'react-redux';
 
 import {IconLabel} from '../components';
 import {COLORS, FONTS, SIZES, icons} from '../constants';
-import {Image, ImageBackground, Text, View} from 'react-native';
+import {selectedTheme} from '../redux/theme/themeSlice';
 
 const HorizontalCard = ({containerStyle, course}) => {
+  const appTheme = useSelector(selectedTheme);
+
   return (
     <View
       style={{
@@ -56,6 +60,7 @@ const HorizontalCard = ({containerStyle, course}) => {
         {/* Title */}
         <Text
           style={{
+            color: appTheme?.textColor,
             ...FONTS.h3,
             fontSize: 18,
           }}>
@@ -71,6 +76,7 @@ const HorizontalCard = ({containerStyle, course}) => {
           }}>
           <Text
             style={{
+              color: appTheme?.textColor,
               ...FONTS.body4,
             }}>
             By {course.instructor}
@@ -116,7 +122,7 @@ const HorizontalCard = ({containerStyle, course}) => {
             }}
             labelStyle={{
               marginLeft: 5,
-              color: COLORS.black,
+              color: appTheme?.textColor,
               ...FONTS.h3,
             }}
           />

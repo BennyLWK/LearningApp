@@ -1,11 +1,15 @@
 import React from 'react';
-
-import {COLORS, FONTS, SIZES, icons} from '../constants';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Image, Text, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useSelector} from 'react-redux';
+
 import {IconLabel} from '../components';
+import {COLORS, FONTS, SIZES, icons} from '../constants';
+import {selectedTheme} from '../redux/theme/themeSlice';
 
 const VerticalCard = ({containerStyle, course}) => {
+  const appTheme = useSelector(selectedTheme);
+
   return (
     <TouchableOpacity style={{width: 270, ...containerStyle}}>
       {/* Thumbnail */}
@@ -53,6 +57,7 @@ const VerticalCard = ({containerStyle, course}) => {
           }}>
           <Text
             style={{
+              color: appTheme?.textColor,
               flex: 1,
               ...FONTS.h3,
               fontSize: 18,
